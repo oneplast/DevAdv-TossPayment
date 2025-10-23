@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+
+        let params = new URLSearchParams(window.location.search);
+
+        const requestBody = {
+            paymentKey: params.get("paymentKey"),
+            orderId: params.get("orderId"),
+            amount: params.get("amount")
+        }
+
+        fetch("/confirm", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        }).then(response => response.text())
+            .then(data => {
+                if (data === "success") {
+                    console.log("success")
+                } else {
+                    console.log("fail")
+                }
+            })
+            .catch(error => console.error(error))
+
+    </script>
+</body>
+</html>
